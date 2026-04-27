@@ -2,9 +2,7 @@
 
 This is a template for creating applications using Next.js 15 (app directory) and HeroUI (v3).
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
-
-## Technologies Used
+## TECNOLOGÍAS USADAS
 
 - [Next.js 15](https://nextjs.org/docs/getting-started)
 - [HeroUI v3](https://heroui.com/)
@@ -20,13 +18,13 @@ This is a template for creating applications using Next.js 15 (app directory) an
 git clone https://github.com/MUTUAL-DE-SERVICIOS-AL-POLICIA/template-interface-v3.git Nombre-Interface
 ```
 
-### Install dependencies
+### INSTALAR DEPENDENCIAS
 
 ```bash
 pnpm install
 ```
 
-### Run the development server
+### CORRER EL SERVIDOR DE PRUEBAS
 
 ```bash
 pnpm dev
