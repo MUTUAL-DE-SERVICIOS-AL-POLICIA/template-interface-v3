@@ -1,21 +1,20 @@
-import "@/styles/globals.css";
+import "@/utils/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
+import { fontSans } from "@/utils/fonts";
+import { Navbar } from "@/components/header/navbar";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: "Nombre del sitio",
+    template: `%s - nombre del sitio`,
   },
-  description: siteConfig.description,
+  description: "Descripción del sitio",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icono_muserpol.svg",
   },
 };
 
