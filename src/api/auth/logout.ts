@@ -12,10 +12,8 @@ export async function logout() {
 
     cookieStore.delete("msp");
   } catch (error: any) {
-    console.error(error);
-
     return NextResponse.json(
-      { error: true, message: "Hubo un error en el servicio" },
+      { error: true, message: "Error al cerrar sesión: " + error.message },
       { status: 500 },
     );
   }
