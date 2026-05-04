@@ -1,11 +1,14 @@
 import "@/utils/globals.css";
-import { Metadata, Viewport } from "next";
+import { Viewport } from "next";
 import clsx from "clsx";
+import { Metadata } from "next";
 
 import { Providers } from "./providers";
 
 import { fontSans } from "@/utils/fonts";
 import { Navbar } from "@/components/header/navbar";
+import { SidebarRoot } from "@/components/header/sidebarRoot";
+import { getUserCookie, getDeployEnvironment } from "@/utils";
 
 export const metadata: Metadata = {
   title: {
@@ -25,37 +28,37 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data } = await getUserCookie();
+  const environment = getDeployEnvironment();
+  const computerToolName = "TEMPLATE MUSERPOL";
+
   return (
     <html suppressHydrationWarning lang="en">
       <head />
       <body
         className={clsx(
-          "min-h-screen text-foreground bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
-            <footer className="w-full flex items-center justify-center py-3">
-              <a
-                className="flex items-center gap-1 text-current no-underline"
-                href="https://heroui.com?utm_source=next-app-template"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <span className="text-muted">Powered by</span>
-                <p className="text-accent">HeroUI</p>
-              </a>
-            </footer>
+        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+          <div className="flex flex-col h-screen">
+            <Navbar
+              computerToolName={computerToolName}
+              environment={environment}
+              user={data}
+            />
+            <div className="flex flex-1 overflow-x-hidden">
+              <SidebarRoot />
+              <main className="flex-1 overflow-y-auto bg-slate-50 dark:bg-neutral-950">
+                {children}
+              </main>
+            </div>
           </div>
         </Providers>
       </body>

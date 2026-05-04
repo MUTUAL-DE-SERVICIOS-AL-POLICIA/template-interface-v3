@@ -1,22 +1,26 @@
 "use client";
 
-import { Avatar, Dropdown, Label, Link, Tooltip } from "@heroui/react";
+import { Link, Tooltip } from "@heroui/react";
+
+import { UserSession } from "./userSession";
 
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Logo } from "@/components/icons";
 import { urlLogin } from "@/services";
+import { User } from "@/utils/interfaces";
+import { logout } from "@/api";
 
-// interface Props {
-//   user: User;
-//   environment: string;
-//   computerToolName: string;
-// }
+interface Props {
+  user: User;
+  environment: string;
+  computerToolName: string;
+}
 
-export const Navbar = () => {
-  // const onLogout = async () => {
-  //   await logout();
-  //   window.location.href = `${urlLogin}/login`;
-  // };
+export const Navbar = ({ user, environment, computerToolName }: Props) => {
+  const onLogout = async () => {
+    await logout();
+    window.location.href = `${urlLogin}/login`;
+  };
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
@@ -36,62 +40,30 @@ export const Navbar = () => {
           </Tooltip>
         </div>
 
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col items-center text-center leading-tight">
+            <span className="font-bold text-md uppercase">
+              {computerToolName}
+            </span>
+            {(environment === "dev" || environment === "test") && (
+              <span className="mt-1 text-xs font-medium text-white bg-red-500 px-2 py-0.5 rounded-sm shadow-xs shadow-red-300 border border-white/20">
+                {environment === "test"
+                  ? "VERSIÓN DE PRUEBAS"
+                  : "VERSIÓN DE DESARROLLO"}
+              </span>
+            )}
+          </div>
+        </div>
+
         <div className="hidden sm:flex items-center gap-2">
           <ThemeSwitch />
           <div className="hidden md:flex">
-            <Dropdown>
-              <Dropdown.Trigger className="rounded-full">
-                <Avatar>
-                  <Avatar.Image alt="Blue" src="/" />
-                  <Avatar.Fallback delayMs={600}>Default</Avatar.Fallback>
-                </Avatar>
-              </Dropdown.Trigger>
-              <Dropdown.Popover>
-                <div className="px-3 pt-3 pb-1">
-                  <div className="flex items-center gap-2">
-                    <Avatar size="sm">
-                      <Avatar.Fallback delayMs={600} />
-                    </Avatar>
-                    <div className="flex flex-col gap-0">
-                      <p className="text-sm leading-5 font-medium">Jane Doe</p>
-                      <p className="text-xs leading-none text-muted">
-                        jane@example.com
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <Dropdown.Menu>
-                  <Dropdown.Item id="dashboard" textValue="Dashboard">
-                    <Label>Dashboard</Label>
-                  </Dropdown.Item>
-                  <Dropdown.Item id="profile" textValue="Profile">
-                    <Label>Profile</Label>
-                  </Dropdown.Item>
-                  <Dropdown.Item id="settings" textValue="Settings">
-                    <div className="flex w-full items-center justify-between gap-2">
-                      <Label>Settings</Label>
-                      {/* <Gear className="size-3.5 text-muted" /> */}
-                    </div>
-                  </Dropdown.Item>
-                  <Dropdown.Item id="new-project" textValue="New project">
-                    <div className="flex w-full items-center justify-between gap-2">
-                      <Label>Create Team</Label>
-                      {/* <Persons className="size-3.5 text-muted" /> */}
-                    </div>
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    id="logout"
-                    textValue="Logout"
-                    variant="danger"
-                  >
-                    <div className="flex w-full items-center justify-between gap-2">
-                      <Label>Log Out</Label>
-                      {/* <ArrowRightFromSquare className="size-3.5 text-danger" /> */}
-                    </div>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown.Popover>
-            </Dropdown>
+            <UserSession
+              name={user?.name}
+              urlLogin={`${urlLogin}/login`}
+              username={user?.username}
+              onLogout={onLogout}
+            />
           </div>
         </div>
       </header>
