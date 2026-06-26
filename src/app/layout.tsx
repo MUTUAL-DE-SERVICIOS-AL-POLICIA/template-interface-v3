@@ -1,14 +1,11 @@
 import "@/utils/globals.css";
-import { Viewport } from "next";
+import { Viewport, Metadata } from "next";
 import clsx from "clsx";
-import { Metadata } from "next";
 
 import { Providers } from "./providers";
 
-import { fontSans } from "@/utils/fonts";
-import { Navbar } from "@/components/header/navbar";
-import { SidebarRoot } from "@/components/header/sidebarRoot";
-import { getUserCookie, getDeployEnvironment } from "@/utils";
+import { Navbar, SidebarRoot } from "@/components/header";
+import { getUserCookie, getDeployEnvironment, fontSans } from "@/utils";
 
 export const metadata: Metadata = {
   title: {

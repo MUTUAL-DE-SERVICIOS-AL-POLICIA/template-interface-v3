@@ -4,8 +4,7 @@ import { Link, Tooltip } from "@heroui/react";
 
 import { UserSession } from "./userSession";
 
-import { ThemeSwitch } from "@/components/theme-switch";
-import { Logo } from "@/components/icons";
+import { ThemeSwitch, Logo } from "@/components";
 import { urlLogin } from "@/services";
 import { User } from "@/utils/interfaces";
 import { logout } from "@/api";

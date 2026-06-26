@@ -36,6 +36,7 @@ export {
   VerticalDotsIcon,
   HomeIcon,
   LogoutIcon,
+  SalesIcon,
 } from "./icons";
 
 // export { ButtonEdit } from "./buttonEdit";
@@ -51,3 +52,5 @@ export {
 // export { TableActions } from "./tableActions";
 // export { UserSession } from "./userSession";
 // export { Search } from "./search";
+export { ThemeSwitch } from "./theme-switch";
+// export { AlertServer } from "./alertServer";

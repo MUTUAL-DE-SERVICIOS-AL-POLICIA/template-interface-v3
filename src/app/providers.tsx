@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import type { ThemeProviderProps } from "next-themes";
@@ -46,20 +47,26 @@ export function SidebarProvider({
   }, [initialCollapsed]);
 
   useEffect(() => {
-    if (collapsed !== null) {
-      localStorage.setItem("sidebar-collapsed", collapsed.toString());
-    }
+    if (collapsed === null) return;
+
+    localStorage.setItem("sidebar-collapsed", collapsed.toString());
   }, [collapsed]);
+
+  const toggleCollapsed = () => {
+    setCollapsed((prev) => !prev);
+  };
 
   if (collapsed === null) {
     return null;
   }
 
-  const toggleCollapsed = () => setCollapsed((prev) => !prev);
-
   return (
     <SidebarContext.Provider
-      value={{ collapsed, toggleCollapsed, setCollapsed }}
+      value={{
+        collapsed,
+        toggleCollapsed,
+        setCollapsed,
+      }}
     >
       {children}
     </SidebarContext.Provider>
@@ -83,7 +90,7 @@ export function Providers({
 }: ProvidersProps) {
   return (
     <NextThemesProvider {...themeProps}>
-      <Toast.Provider />
+      <Toast.Provider placement="top end" />
       <SidebarProvider initialCollapsed={initialSidebarCollapsed ?? true}>
         {children}
       </SidebarProvider>
